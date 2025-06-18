@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 등록</title>
+</head>
+<body>
+    <h1>게시글 등록</h1>
+    <form action="/board/insert" method="post">
+        <table border="1">
+            <tr>
+                <th>제목</th>
+                <td>
+                    <input type="text" name="title" id="title"/>
+                </td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td>
+                    <input type="text" name="writer" id="wrtier"/>
+                </td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td colspan="2">
+                    <textarea name="content" id="content" rows="5" cols="40"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td clospan="2" align="right">
+                    <button type="submit">등록</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div>
+        <th:block th:if=${param.error}>
+            <span style="color: red;">게시글 등록 실패!</span>
+        </th:block>
+    </div>
+
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            const error = [[${param.error}]]
+            console.log('error : ', error)
+            if(error != null) alert("게시글 등록 실패!")
+        })
+    </script>
+</body>
+</html>

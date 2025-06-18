@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 조회</title>
+</head>
+<body>
+    <h1>게시글 조회</h1>
+    <a th:href="@{/board/update(no=${board.no})}">수정</a>
+    <!--
+        ⭐ th:object=${객체}
+            : 상위 태그에서 객체를 등록하고, 하위 태그에서 변수만 출력하게 할 수 있다.
+            th:??=*{변수} 형식으로 상위 객체의 값을 출력
+    -->
+    <table border="1" th:object="${board}">
+        <tr>
+            <th>제목</th>
+            <td>
+                <span th:text="*{title}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td>
+                <span th:text="*{writer}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td colspan="2">
+                <p th:text="*{content}"></p>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <th:block th:if=${param.error}>
+            <span style="color: red;">게시글 등록 실패!</span>
+        </th:block>
+    </div>
+
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            const error = [[${param.error}]]
+            console.log('error : ', error)
+            if(error) alert("게시글 등록 실패!")
+        })
+    </script>
+</body>
+</html>
