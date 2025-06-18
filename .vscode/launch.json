@@ -9,6 +9,26 @@
             "projectName": "sample",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringDiApplication<spring-di>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.spring_di.SpringDiApplication",
+            "projectName": "spring-di",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringHttpApplication<spring-http>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.spring_http.SpringHttpApplication",
+            "projectName": "spring-http",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
