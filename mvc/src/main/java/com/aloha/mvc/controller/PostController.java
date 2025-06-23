@@ -128,9 +128,9 @@ public class PostController {
         boolean result = postService.insert(post);
         // 리다이렉트
         // ⭕ 데이터 처리 성공
-        if(result) return new ResponseEntity("SUCCESS", HttpStatus.OK);
+        if(result) return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
         // ❌ 데이터 처리 실패
-        return  new ResponseEntity("FAIL", HttpStatus.BAD_REQUEST);
+        return  new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -140,7 +140,7 @@ public class PostController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/update")
+    @GetMapping("/update/{no}")
     public String update(@PathVariable("no") Integer no, Model model) throws Exception {
         // 데이터 요청
         Posts post = postService.select(no);
@@ -175,6 +175,7 @@ public class PostController {
      */
     @PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updatePutJSON(@RequestBody Posts post) throws Exception {
+        log.info("post : {}", post);
         // 데이터 요청
         boolean result = postService.update(post);
         // 리다이렉트
@@ -190,7 +191,7 @@ public class PostController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/delete")
+    @PostMapping("/delete/{no}")
     public String postDelete(@PathVariable("no") Integer no) throws Exception {
         // 데이터 요청
         boolean result = postService.delete(no);
@@ -207,7 +208,7 @@ public class PostController {
      * @return
      * @throws Exception
      */
-    @DeleteMapping("/delete")
+    @DeleteMapping("/{no}")
     public ResponseEntity<?> postDeleteJSON(@PathVariable("no") Integer no) throws Exception {
         // 데이터 요청
         boolean result = postService.delete(no);
