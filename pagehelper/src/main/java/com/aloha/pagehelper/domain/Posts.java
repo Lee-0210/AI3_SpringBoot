@@ -1,4 +1,4 @@
-package com.aloha.rest.dto;
+package com.aloha.pagehelper.domain;
 
 import java.util.Date;
 import java.util.UUID;

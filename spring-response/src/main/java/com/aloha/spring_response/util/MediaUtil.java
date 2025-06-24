@@ -3,8 +3,6 @@ package com.aloha.spring_response.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.print.attribute.standard.Media;
-
 import org.springframework.http.MediaType;
 
 // 유틸(Util) : 자주 사용하는 기능이나 공통적으로 필요한 코드를 모아놓은 클래스, 모듈
