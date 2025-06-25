@@ -83,9 +83,9 @@ public class PostServiceImpl implements PostService {
     }
 
     /**
-     * @param id : 게시글 id
-     * @param userNo  : 회원 no (PK)
-     * 게시글 id 로 장석장 userNo 를 조회하여,
+     * @param id        : 게시글 id
+     * @param userNo    : 회원 no (PK)
+     * 게시글 id로 작성자 userNo 를 조회하여,
      * 인증된 사용자 no 와 일치하는지 확인
      */
     @Override
@@ -95,9 +95,10 @@ public class PostServiceImpl implements PostService {
 
         Posts post = selectById(id);
         Long postUserNo = post.getUserNo();
-        if(userNo != null && userNo == postUserNo) {
+        if( userNo != null && userNo == postUserNo ) {
             return true;
         }
         return false;
     }
+
 }

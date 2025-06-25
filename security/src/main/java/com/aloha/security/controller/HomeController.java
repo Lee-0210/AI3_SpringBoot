@@ -15,7 +15,6 @@ import com.aloha.security.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 @Controller
 public class HomeController {
-    
+
     @Autowired private UserService userService;
 
     @GetMapping("")
@@ -62,7 +61,7 @@ public class HomeController {
 
         return "index";
     }
-    
+
 
 
     /**
@@ -94,14 +93,14 @@ public class HomeController {
             loginResult = userService.login(user, request);  // ⚡🔐 바로 로그인
         }
         if(loginResult)
-            // 메인 화면으로 이동   
+            // 메인 화면으로 이동
             return "redirect:/";
         if(result > 0)
             // 로그인 화면으로 이동
             return "redirect:/login";
         return "redirect:/join?error=true";
     }
-    
+
 
     /**
      * 로그인 화면
@@ -125,7 +124,7 @@ public class HomeController {
         model.addAttribute("rememberId", rememberId);
         return "login";
     }
-    
-    
-    
+
+
+
 }

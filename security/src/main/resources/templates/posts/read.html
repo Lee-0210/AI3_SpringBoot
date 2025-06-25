@@ -30,14 +30,16 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <!-- 👮‍♂️ 관리자 -->
-                    <!-- <th:block sec:authorize="(hasRole('ADMIN'))">
+                    <!-- 👮‍♀️ 관리자 -->
+                    <!-- <th:block sec:authorize="( hasRole('ADMIN') )">
                         <a th:href="@{/posts/update/{id}(id=*{id})}" class="btn btn-lg btn-primary">수정</a>
                     </th:block> -->
                     <!-- 👩‍🏫 작성자 -->
-                    <!-- <th:block th:if="${@PostService.isOwner(post.id, #authentication.principal.user.no)}">
+                    <!-- <th:block th:if="${ @PostService.isOwner( post.id, #authentication.principal.user.no ) }">
                         <a th:href="@{/posts/update/{id}(id=*{id})}" class="btn btn-lg btn-primary">수정</a>
                     </th:block> -->
+
+                    <!-- 👮‍♀️ 관리자 or 👩‍🏫 작성자 -->
                     <th:block th:if="${ @UserService.isAdmin() or @PostService.isOwner( post.id, #authentication.principal.user.no ) }">
                         <a th:href="@{/posts/update/{id}(id=*{id})}" class="btn btn-lg btn-primary">수정</a>
                     </th:block>

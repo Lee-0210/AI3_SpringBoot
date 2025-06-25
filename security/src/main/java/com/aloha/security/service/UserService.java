@@ -20,6 +20,6 @@ public interface UserService {
     public Users select(String username) throws Exception;
 
     // 👮‍♂️ 관리자 체크
-    public boolean isAmdin() throws Exception;
+    public boolean isAdmin() throws Exception;
 
 }
