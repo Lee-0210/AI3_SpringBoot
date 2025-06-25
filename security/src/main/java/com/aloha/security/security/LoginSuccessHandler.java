@@ -18,10 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
-
+    
     /**
-     * 로그인 성공 시 호출되는 메서드
-     * 🟡 아이디 저장 쿠키 생성
+     * 로그인 성공 시 호출되는 메소드
+     * 🍪 아이디 저장 쿠키 생성
+     * 
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -30,20 +31,20 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         log.info("로그인 성공!");
 
         // 아이디 저장
-        String rememberId = request.getParameter("remember-id");
-        String username = request.getParameter("id");
+        String rememberId = request.getParameter("remember-id");    // ✅ 아이디 저장 여부
+        String username = request.getParameter("username");         // 👩‍💼 아이디
 
-        // 아이디 저장 체크 ✅
-        if (rememberId != null && rememberId.equals("on")) {
-            Cookie cookie = new Cookie("remember-id", username); // 쿠키에 아이디 등록
-            cookie.setMaxAge(60 * 60 * 24 * 7); // 유호기간 : 7일
+        // 아이디 저장 체크 ✅ 
+        if( rememberId != null && rememberId.equals("on") ) {
+            Cookie cookie = new Cookie("remember-id", username);     // 쿠키에 아이디 등록
+            cookie.setMaxAge(60 * 60 * 24 * 7);                           // 유효기간 : 7일
             cookie.setPath("/");
             response.addCookie(cookie);
         }
-        // 아이디 저장 체크 ❌
+        // 아이디 저장 체크 ❌ 
         else {
-            Cookie cookie = new Cookie("remember-id", username); // 쿠키에 아이디 등록
-            cookie.setMaxAge(0); // 유효기간 : 0 (만료)
+            Cookie cookie = new Cookie("remember-id", username);     // 쿠키에 아이디 등록
+            cookie.setMaxAge(0);                                   // 유효기간 : 0 (만료)
             cookie.setPath("/");
             response.addCookie(cookie);
         }
@@ -51,4 +52,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         super.onAuthenticationSuccess(request, response, authentication);
     }
 
+    
+    
 }

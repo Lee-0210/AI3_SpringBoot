@@ -21,7 +21,7 @@ VALUES ( 'test', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92',
 
 
 -- 권한
--- 사용자
+-- 사용자 
 -- * 권한 : ROLE_USER
 INSERT INTO user_auth ( username,  auth )
 VALUES ( 'user', 'ROLE_USER' );
@@ -34,7 +34,7 @@ VALUES ( 'admin', 'ROLE_USER' );
 INSERT INTO user_auth ( username,  auth )
 VALUES ( 'admin', 'ROLE_ADMIN' );
 
--- 사용자
+-- 사용자 
 -- * 권한 : ROLE_USER
 INSERT INTO user_auth ( username,  auth )
 VALUES ( 'test', 'ROLE_USER' );

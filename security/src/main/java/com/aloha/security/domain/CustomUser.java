@@ -1,8 +1,6 @@
 package com.aloha.security.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -24,26 +22,24 @@ public class CustomUser implements UserDetails {
     }
 
     /**
-     * 🔐 권한 정보 메서드
+     * 🔐 권한 정보 메소드
      * ✅ UserDetails 를 CustomUser 로 구현하여,
-     * Spring Security 의 User 대신 사용자 정의 인증 객체(CustomUser)로 적용
-     * ⚠️ CustomUser 적용 시, 권한을 사용할 때는 'ROLE_' 붙여서 사용해야한다.
+     *    Spring Security 의 User 대신 사용자 정의 인증 객체(CustomUser)로 적용
+     * ⚠ CustomUser 적용 시, 권한을 사용할 때는 'ROLE_' 붙여서 사용해야한다.
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // List<UserAuth> authList = user.getAuthList();
         // List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
         // for (UserAuth userAuth : authList) {
-        // String auth = userAuth.getAuth();
-        // authorities.add(new SimpleGrantedAuthority(auth));
+        //     String auth = userAuth.getAuth();
+        //     authorities.add( new SimpleGrantedAuthority(auth) );
         // }
-
         // return authorities;
 
         return user.getAuthList().stream()
-                .map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
-                .collect(Collectors.toList());
+                                 .map( (auth) -> new SimpleGrantedAuthority(auth.getAuth() ))
+                                 .collect(Collectors.toList());
     }
 
     @Override
@@ -60,4 +56,7 @@ public class CustomUser implements UserDetails {
     public boolean isEnabled() {
         return user.getEnabled() == 1 ? true : false;
     }
+
+    
+    
 }

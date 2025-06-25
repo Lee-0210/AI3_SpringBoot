@@ -18,7 +18,7 @@ INSERT INTO `posts` (id, title, writer, content)
 SELECT
     UUID() AS id,
     CONCAT('제목', LPAD(n, 4, '0')) AS title,
-    CONCAT('작성자', LPAD(n, 4, '0')) AS writer,
+    ELT(FLOOR(1 + RAND() * 3), 1, 2, 3) AS user_no,
     CONCAT('내용', LPAD(n, 4, '0')) AS content
 FROM
     (
