@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- namespace="매퍼 인터페이스 경로" --> 
+<!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.aloha.security.mapper.PostMapper">
 
     <resultMap id="PostMap" type="Posts">
@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createdAt" column="created_at" />
         <result property="updatedAt" column="updated_at" />
 
-        <association property="user" select="selectUser" column="user_no" javaType="Users"></association>        
+        <association property="user" select="selectUser" column="user_no" javaType="Users"></association>
     </resultMap>
 
 
@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="list" resultMap="PostMap">
         SELECT *
         FROM posts
+        ORDER BY no DESC
     </select>
 
     <!-- 페이징 목록 -->
@@ -50,15 +51,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 등록 -->
     <insert id="insert">
-        INSERT INTO posts ( id, title, writer, content )
-        VALUES ( #{id}, #{title}, #{writer}, #{content} )
+        INSERT INTO posts ( id, title, user_no, content )
+        VALUES ( #{id}, #{title}, #{userNo}, #{content} )
     </insert>
 
     <!-- 수정 -->
     <update id="update">
         UPDATE posts
            SET title = #{title}
-              ,writer = #{writer}
               ,content = #{content}
         WHERE no = #{no}
     </update>
@@ -67,7 +67,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateById">
         UPDATE posts
            SET title = #{title}
-              ,writer = #{writer}
               ,content = #{content}
         WHERE id = #{id}
     </update>

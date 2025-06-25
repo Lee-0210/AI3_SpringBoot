@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ import com.aloha.security.mapper.UserMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@Service
+@Service("UserService")
 public class UserServiceImpl implements UserService {
 
     @Autowired UserMapper userMapper;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         // 💍 토큰 생성
         String username = user.getUsername();
         String password = user.getPassword();
-        UsernamePasswordAuthenticationToken token 
+        UsernamePasswordAuthenticationToken token
             = new UsernamePasswordAuthenticationToken(username, password);
 
         // 토큰을 이용하여 인증
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
             HttpSession session = request.getSession(true); // 세션이 없으면 생성
             session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
         }
-        return result;   
+        return result;
     }
 
     @Override
@@ -91,5 +91,15 @@ public class UserServiceImpl implements UserService {
         Users user = userMapper.select(username);
         return user;
     }
-    
+
+    @Override
+    public boolean isAmdin() throws Exception {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || !auth.isAuthenticated()) return false;
+
+        return auth.getAuthorities().stream()
+                                    .map(GrantedAuthority::getAuthority)
+                                    .anyMatch(role -> role.equals("ROLE_ADMIN"));
+    }
+
 }

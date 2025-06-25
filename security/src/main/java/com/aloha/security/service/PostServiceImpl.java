@@ -11,7 +11,10 @@ import com.aloha.security.mapper.PostMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service("PostService")
 public class PostServiceImpl implements PostService {
 
     @Autowired private PostMapper postMapper;
@@ -30,12 +33,12 @@ public class PostServiceImpl implements PostService {
     public boolean insert(Posts post) throws Exception {
         return postMapper.insert(post) > 0;
     }
-    
+
     @Override
     public boolean update(Posts post) throws Exception {
         return postMapper.update(post) > 0;
     }
-    
+
     @Override
     public boolean delete(Integer no) throws Exception {
         return postMapper.delete(no) > 0;
@@ -73,10 +76,28 @@ public class PostServiceImpl implements PostService {
     public boolean updateById(Posts post) throws Exception {
         return postMapper.updateById(post) > 0;
     }
-    
+
     @Override
     public boolean deleteById(String id) throws Exception {
         return postMapper.deleteById(id) > 0;
     }
-    
+
+    /**
+     * @param id : 게시글 id
+     * @param userNo  : 회원 no (PK)
+     * 게시글 id 로 장석장 userNo 를 조회하여,
+     * 인증된 사용자 no 와 일치하는지 확인
+     */
+    @Override
+    public boolean isOwner(String id, Long userNo) throws Exception {
+        log.info("isOwner - id : {}", id);
+        log.info("isOwner - userNo : {}", userNo);
+
+        Posts post = selectById(id);
+        Long postUserNo = post.getUserNo();
+        if(userNo != null && userNo == postUserNo) {
+            return true;
+        }
+        return false;
+    }
 }

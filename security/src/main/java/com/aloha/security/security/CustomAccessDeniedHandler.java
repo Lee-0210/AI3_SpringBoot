@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-    
+
     @Override
     public void handle(HttpServletRequest request
                      , HttpServletResponse response
@@ -24,5 +24,5 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         // 에러 페이지로 이동
         response.sendRedirect("/error/403");
     }
-    
+
 }

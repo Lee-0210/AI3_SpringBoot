@@ -28,5 +28,8 @@ public interface PostService {
     public boolean delete(Integer no) throws Exception;
     // 삭제 - id
     public boolean deleteById(String id) throws Exception;
-    
+
+    // 소유자 확인
+    public boolean isOwner(String id, Long userNo) throws Exception;
+
 }
